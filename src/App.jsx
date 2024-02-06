@@ -61,7 +61,13 @@ function App() {
 
   const updateGame = async() => {};
 
-  const updateImage = async() => {};
+  const updateImage = async(formData) => {
+    try {
+      const {data: photoUrl } = await updatePhoto(formData);
+    } catch(e) {
+      console.log(e);
+    }
+  };
 
   const toggleModal = (show) =>  show ? modalRef.current.showModal() : modalRef.current.close();
 
