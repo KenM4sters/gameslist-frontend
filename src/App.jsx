@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
-import { getGame, getGames, saveGame } from './api/GameService';
+import { getGame, getGames, saveGame, updateGame, updatePhoto } from './api/GameService';
 import GameList from './components/GameList'
 import Header from './components/Header';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import GameDetails from './components/GameDetails';
 
 function App() {
   const modalRef = useRef();
@@ -39,11 +40,28 @@ function App() {
   const handleNewGame = async (e) => {
     e.preventDefault();
     try {
-      const res = await saveGame(values);
+      const {data} = await saveGame(values);
+      const formData = new FormData();
+      formData.append("file", file, file.name);
+      formData.append("id", data.id);
+      const {data: photoUrl } = await updatePhoto(formData);
+      toggleModal(false);
+      setFile(undefined);
+      fileRef.current.value = null;
+      setValues({
+        name: "",
+        protagonist: "",
+        rating: ""
+      })
+      getAllGames();
     } catch(e) {
       console.log(e);
     }
-  }
+  };
+
+  const updateGame = async() => {};
+
+  const updateImage = async() => {};
 
   const toggleModal = (show) =>  show ? modalRef.current.showModal() : modalRef.current.close();
 
@@ -56,6 +74,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to={"/games"} />}/>
             <Route path="/games" element={data.content ? <GameList data={data} currentPage={currentPage} getAllGames={getAllGames}/> : <p>waiting for data...</p>} />
+            <Route path="/games/:id" element={<GameDetails updateGame={updateGame} updateImage={updateImage}/>} />
           </Routes>
         </div>
       </main>
