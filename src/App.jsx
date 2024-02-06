@@ -1,10 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
-import './App.css'
-import { getGame, getGames, saveGame, updateGame, updatePhoto } from './api/GameService';
-import GameList from './components/GameList'
-import Header from './components/Header';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import GameDetails from './components/GameDetails';
+import { useEffect, useRef, useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css"
+import {
+  getGame,
+  getGames,
+  saveGame,
+  updateGame,
+  updatePhoto,
+} from "./api/GameService";
+import GameList from "./components/GameList";
+import Header from "./components/Header";
+import { Navigate, Route, Routes } from "react-router-dom";
+import GameDetails from "./components/GameDetails";
+import { ToastContainer, toast } from "react-toastify";
+import { toastError } from "./api/Toast";
 
 function App() {
   const modalRef = useRef();
@@ -15,72 +24,103 @@ function App() {
   const [values, setValues] = useState({
     name: "",
     protagonist: "",
-    rating: ""
+    rating: "",
   });
 
-  const getAllGames = async(page = 0, size = 10) => {
+  const getAllGames = async (page = 0, size = 2) => {
     try {
       setCurrentPage(page);
       const { data } = await getGames(page, size);
       setData(data);
       console.log(data);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
+      toastError(e);
     }
-  }
+  };
 
   useEffect(() => {
     getAllGames();
   }, []);
 
   const onChange = (e) => {
-    setValues({...values, [e.target.name]: e.target.value})
-  }
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
   const handleNewGame = async (e) => {
     e.preventDefault();
     try {
-      const {data} = await saveGame(values);
+      const { data } = await saveGame(values);
       const formData = new FormData();
       formData.append("file", file, file.name);
       formData.append("id", data.id);
-      const {data: photoUrl } = await updatePhoto(formData);
+      const { data: photoUrl } = await updatePhoto(formData);
       toggleModal(false);
       setFile(undefined);
       fileRef.current.value = null;
       setValues({
         name: "",
         protagonist: "",
-        rating: ""
-      })
+        rating: "",
+      });
       getAllGames();
-    } catch(e) {
+    } catch (e) {
       console.log(e);
+      toastError(e);
     }
   };
 
-  const updateGame = async() => {};
-
-  const updateImage = async(formData) => {
+  const updateGame = async (game) => {
     try {
-      const {data: photoUrl } = await updatePhoto(formData);
-    } catch(e) {
+      const { data } = await saveGame(game);
+    } catch (e) {
       console.log(e);
+      toastError(e);
     }
   };
 
-  const toggleModal = (show) =>  show ? modalRef.current.showModal() : modalRef.current.close();
+  const updateImage = async (formData) => {
+    try {
+      const { data: photoUrl } = await updatePhoto(formData);
+    } catch (e) {
+      console.log(e);
+      toastError(e);
+    }
+  };
 
+  const toggleModal = (show) =>
+    show ? modalRef.current.showModal() : modalRef.current.close();
 
   return (
     <>
       <Header toggleModal={toggleModal} numOfGames={data.totalElements} />
-      <main className='main'>
-        <div className='container'>
+      <main className="main">
+        <div className="container">
           <Routes>
-            <Route path="/" element={<Navigate to={"/games"} />}/>
-            <Route path="/games" element={data.content ? <GameList data={data} currentPage={currentPage} getAllGames={getAllGames}/> : <p>waiting for data...</p>} />
-            <Route path="/games/:id" element={<GameDetails updateGame={updateGame} updateImage={updateImage}/>} />
+            <Route path="/" element={<Navigate to={"/games"} />} />
+            <Route
+              path="/games"
+              element={
+                data.content ? (
+                  <GameList
+                    data={data}
+                    currentPage={currentPage}
+                    getAllGames={getAllGames}
+                  />
+                ) : (
+                  <p>waiting for data...</p>
+                )
+              }
+            />
+            <Route
+              path="/games/:id"
+              element={
+                <GameDetails
+                  updateGame={updateGame}
+                  updateImage={updateImage}
+                />
+              }
+            />
           </Routes>
         </div>
       </main>
@@ -97,30 +137,63 @@ function App() {
             <div className="user-details">
               <div className="input-box">
                 <span className="details">Name</span>
-                <input type="text" value={values.name} onChange={onChange} name='name' required />
+                <input
+                  type="text"
+                  value={values.name}
+                  onChange={onChange}
+                  name="name"
+                  required
+                />
               </div>
               <div className="input-box">
                 <span className="details">Protagonist</span>
-                <input type="text" value={values.protagonist} onChange={onChange} name='protagonist' required />
+                <input
+                  type="text"
+                  value={values.protagonist}
+                  onChange={onChange}
+                  name="protagonist"
+                  required
+                />
               </div>
               <div className="input-box">
                 <span className="details">Rating</span>
-                <input type="text" value={values.rating} onChange={onChange} name='rating' required />
+                <input
+                  type="text"
+                  value={values.rating}
+                  onChange={onChange}
+                  name="rating"
+                  required
+                />
               </div>
               <div className="file-input">
                 <span className="details">Profile Photo</span>
-                <input type="file" onChange={(e) => setFile(e.target.files[0])} ref={fileRef} name='photo' required />
+                <input
+                  type="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  ref={fileRef}
+                  name="photo"
+                  required
+                />
               </div>
             </div>
             <div className="form_footer">
-              <button onClick={() => toggleModal(false)} type='button' className="btn btn-danger">Cancel</button>
-              <button type='submit' className="btn">Save</button>
+              <button
+                onClick={() => toggleModal(false)}
+                type="button"
+                className="btn btn-danger"
+              >
+                Cancel
+              </button>
+              <button type="submit" className="btn">
+                Save
+              </button>
             </div>
           </form>
         </div>
       </dialog>
+      <ToastContainer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

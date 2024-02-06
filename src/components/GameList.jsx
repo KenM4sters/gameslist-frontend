@@ -21,7 +21,7 @@ const GameList = ({ data, currentPage, getAllGames }) => {
                 &1aquo;
             </a>
             { data && [...Array(data.totalPages).keys()].map((page, index) => 
-                <a onClick={getAllGames(page)} className={currentPage == page ? 'active' : 'disabled'} key={page}>
+                <a onClick={() =>  getAllGames(page)} className={currentPage == page ? 'active' : 'disabled'} key={page}>
                     {page + 1}
                 </a>
             )}

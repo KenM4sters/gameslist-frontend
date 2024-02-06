@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getGame, saveGame, updatePhoto } from "../api/GameService";
+import { toastSuccess } from "../api/Toast";
 
 const GameDetails = ({ updateGame, updateImage }) => {
   const inputRef = useRef();
   const [game, setGame] = useState({
+    id: "",
     name: "",
     protagonist: "",
     rating: "",
@@ -33,10 +35,23 @@ const GameDetails = ({ updateGame, updateImage }) => {
       formData.append("file", file, file.name);
       formData.append("id", id);
       await updateImage(formData);
-      setGame((prev) => ({...prev, photoUrl: `${prev.photoUrl}?updated_at=${new Date().getTime()}`}))
+      setGame((prev) => ({
+        ...prev,
+        photoUrl: `${prev.photoUrl}?updated_at=${new Date().getTime()}`,
+      }));
+      toastSuccess("Photo updated!");
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const onChange = (e) => {
+    setGame({...game, [e.target.name]: e.target.value})
+  };
+  const onUpdateGame = async (e) => {
+    e.preventDefault();
+    await updateGame(game);
+    fetchGame(id)
   };
 
   useEffect(() => {
@@ -61,7 +76,53 @@ const GameDetails = ({ updateGame, updateImage }) => {
             </button>
           </div>
         </div>
-        <div className="game_settings">Settings</div>
+        <div className="game_settings">
+          <form onSubmit={onUpdateGame} className="form">
+            <div className="user-details">
+              <input
+                type="hidden"
+                defaultValue={game.id}
+                name="id"
+                required
+              />
+              <div className="input-box">
+                <span className="details">Name</span>
+                <input
+                  type="text"
+                  value={game.name}
+                  onChange={onChange}
+                  name="name"
+                  required
+                />
+              </div>
+              <div className="input-box">
+                <span className="details">Address</span>
+                <input
+                  type="text"
+                  value={game.protagonist}
+                  onChange={onChange}
+                  name="address"
+                  required
+                />
+              </div>
+              <div className="input-box">
+                <span className="details">Title</span>
+                <input
+                  type="text"
+                  value={game.rating}
+                  onChange={onChange}
+                  name="title"
+                  required
+                />
+              </div>
+            </div>
+            <div className="form_footer">
+              <button type="submit" className="btn">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <form style={{ display: "none" }}>
