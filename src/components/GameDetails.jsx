@@ -52,6 +52,7 @@ const GameDetails = ({ updateGame, updateImage }) => {
     e.preventDefault();
     await updateGame(game);
     fetchGame(id)
+    toastSuccess("Game updated!");
   };
 
   useEffect(() => {
@@ -62,12 +63,61 @@ const GameDetails = ({ updateGame, updateImage }) => {
   return (
     <>
     <section className="game_details_wrapper">
-      <Link to={"/"} className="link">
-        <p>Back to Home</p> 
-      </Link>
-      <div className="game">
-        <div className="game_details">
-          <img src={game.photoUrl} alt={`Photo of ${game.name}`} />
+      <div className="game_details_body">
+        <img src={game.photoUrl} alt={`Photo of ${game.name}`} className="game_details_image" />
+        <div className="game_details_info">
+          <Link to={"/"} className="game_details_close">
+            <p>Back to Home</p> 
+          </Link>
+          <div className="game">
+            <div className="game_settings">
+              <form onSubmit={onUpdateGame} className="form">
+                <div className="user-details">
+                  <input
+                    type="hidden"
+                    defaultValue={game.id}
+                    name="id"
+                    required
+                  />
+                  <div className="game-details-input-box">
+                    <span className="details">Name</span>
+                    <input
+                      type="text"
+                      value={game.name}
+                      onChange={onChange}
+                      name="name"
+                      required
+                    />
+                  </div>
+                  <div className="game-details-input-box">
+                    <span className="details">Rating</span>
+                    <input
+                      type="text"
+                      value={game.rating}
+                      onChange={onChange}
+                      name="rating"
+                      required
+                    />
+                  </div>
+                  <div className="game-details-input-box">
+                    <span className="details">Protagonist</span>
+                    <input
+                      type="text"
+                      value={game.protagonist}
+                      onChange={onChange}
+                      name="protagonist"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form_footer">
+                  <button type="submit" className="btn">
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
           <div className="game_metadata">
             <p className="game_name">{game.name}</p>
             <p className="game_file_formats">
@@ -77,64 +127,17 @@ const GameDetails = ({ updateGame, updateImage }) => {
               Change Photo
             </button>
           </div>
-        </div>
-        <div className="game_settings">
-          <form onSubmit={onUpdateGame} className="form">
-            <div className="user-details">
-              <input
-                type="hidden"
-                defaultValue={game.id}
-                name="id"
-                required
+          <form style={{ display: "none" }}>
+            <input
+              type="file"
+              ref={inputRef}
+              onChange={(e) => updatePhoto(e.target.files[0])}
+              name="file"
+              accept="image/*"
               />
-              <div className="input-box">
-                <span className="details">Name</span>
-                <input
-                  type="text"
-                  value={game.name}
-                  onChange={onChange}
-                  name="name"
-                  required
-                />
-              </div>
-              <div className="input-box">
-                <span className="details">Rating</span>
-                <input
-                  type="text"
-                  value={game.rating}
-                  onChange={onChange}
-                  name="rating"
-                  required
-                />
-              </div>
-              <div className="input-box">
-                <span className="details">Protagonist</span>
-                <input
-                  type="text"
-                  value={game.protagonist}
-                  onChange={onChange}
-                  name="protagonist"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form_footer">
-              <button type="submit" className="btn">
-                Save
-              </button>
-            </div>
           </form>
         </div>
       </div>
-      <form style={{ display: "none" }}>
-        <input
-          type="file"
-          ref={inputRef}
-          onChange={(e) => updatePhoto(e.target.files[0])}
-          name="file"
-          accept="image/*"
-          />
-      </form>
     </section>
     </>
   );
