@@ -147,13 +147,25 @@ img {
 .modal {
     background-color: rgb(255, 255, 255);
     top: 25%;
-    left: 25%;
-    width: 30vh;
-    height: 25vw;
+    left: 37%;
+    width: 20vw;
+    height: 40vh;
     padding: 5vh;
     border-radius: 15px;
     border: none;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.modal_wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5vh;
+}
+
+.modal_header {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10vw;
 }
 
 .modal_form {
@@ -179,5 +191,6 @@ img {
 
 .close-tag {
     cursor: pointer;
+    font-weight: 600;
 }
 

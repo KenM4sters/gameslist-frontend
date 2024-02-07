@@ -18,7 +18,7 @@ const GameDetails = ({ updateGame, updateImage }) => {
   const fetchGame = async (id) => {
     try {
       const { data } = await getGame(id);
-      saveGame(data);
+      setGame(data);
       console.log(data);
     } catch (e) {
       console.log(e);
@@ -57,6 +57,7 @@ const GameDetails = ({ updateGame, updateImage }) => {
   useEffect(() => {
     fetchGame(id);
   }, []);
+
 
   return (
     <>
@@ -97,22 +98,22 @@ const GameDetails = ({ updateGame, updateImage }) => {
                 />
               </div>
               <div className="input-box">
-                <span className="details">Address</span>
-                <input
-                  type="text"
-                  value={game.protagonist}
-                  onChange={onChange}
-                  name="address"
-                  required
-                />
-              </div>
-              <div className="input-box">
-                <span className="details">Title</span>
+                <span className="details">Rating</span>
                 <input
                   type="text"
                   value={game.rating}
                   onChange={onChange}
-                  name="title"
+                  name="rating"
+                  required
+                />
+              </div>
+              <div className="input-box">
+                <span className="details">Protagonist</span>
+                <input
+                  type="text"
+                  value={game.protagonist}
+                  onChange={onChange}
+                  name="protagonist"
                   required
                 />
               </div>

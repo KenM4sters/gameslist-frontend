@@ -32,7 +32,6 @@ function App() {
       setCurrentPage(page);
       const { data } = await getGames(page, size);
       setData(data);
-      console.log(data);
     } catch (e) {
       console.log(e);
       toastError(e);
@@ -126,77 +125,79 @@ function App() {
 
       {/* Modal */}
         <dialog ref={modalRef} className="modal" id="modal">
-          <div className="modal__header">
-            <h3>New Game</h3>
-            <p onClick={() => toggleModal(false)} className="close-tag">close</p>
-          </div>
-          <div className="divider"></div>
-          <div className="modal__body">
-            <form onSubmit={handleNewGame} className="modal_form">
-              <div className="user-details">
-                <div className="input-box">
-                  <span className="details">Name</span>
-                  <div className="input-box-text">
-                    <input
-                      type="text"
-                      value={values.name}
-                      onChange={onChange}
-                      name="name"
-                      required
-                    />
+          <section className="modal_wrapper">
+            <div className="modal_header">
+              <h3>New Game</h3>
+              <p onClick={() => toggleModal(false)} className="close-tag">close</p>
+            </div>
+            <div className="divider"></div>
+            <div className="modal_body">
+              <form onSubmit={handleNewGame} className="modal_form">
+                <div className="user-details">
+                  <div className="input-box">
+                    <span className="details">Name</span>
+                    <div className="input-box-text">
+                      <input
+                        type="text"
+                        value={values.name}
+                        onChange={onChange}
+                        name="name"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Protagonist</span>
+                    <div className="input-box-text">
+                      <input
+                        type="text"
+                        value={values.protagonist}
+                        onChange={onChange}
+                        name="protagonist"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Rating</span>
+                    <div className="input-box-text">
+                      <input
+                        type="text"
+                        value={values.rating}
+                        onChange={onChange}
+                        name="rating"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="file-input">
+                    <span className="details">Profile Photo</span>
+                    <div className="input-box-text">
+                      <input
+                        type="file"
+                        onChange={(e) => setFile(e.target.files[0])}
+                        ref={fileRef}
+                        name="photo"
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="input-box">
-                  <span className="details">Protagonist</span>
-                  <div className="input-box-text">
-                    <input
-                      type="text"
-                      value={values.protagonist}
-                      onChange={onChange}
-                      name="protagonist"
-                      required
-                    />
-                  </div>
+                <div className="form_footer">
+                  <button
+                    onClick={() => toggleModal(false)}
+                    type="button"
+                    className="btn btn-danger"
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn">
+                    Save
+                  </button>
                 </div>
-                <div className="input-box">
-                  <span className="details">Rating</span>
-                  <div className="input-box-text">
-                    <input
-                      type="text"
-                      value={values.rating}
-                      onChange={onChange}
-                      name="rating"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="file-input">
-                  <span className="details">Profile Photo</span>
-                  <div className="input-box-text">
-                    <input
-                      type="file"
-                      onChange={(e) => setFile(e.target.files[0])}
-                      ref={fileRef}
-                      name="photo"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="form_footer">
-                <button
-                  onClick={() => toggleModal(false)}
-                  type="button"
-                  className="btn btn-danger"
-                >
-                  Cancel
-                </button>
-                <button type="submit" className="btn">
-                  Save
-                </button>
-              </div>
-            </form>
-          </div>
+              </form>
+            </div>
+          </section>
         </dialog>
       <ToastContainer />
     </>
