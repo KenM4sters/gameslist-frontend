@@ -73,41 +73,49 @@ const GameDetails = ({ updateGame, updateImage }) => {
             <div className="game_settings">
               <form onSubmit={onUpdateGame} className="form">
                 <div className="user-details">
-                  <input
-                    type="hidden"
-                    defaultValue={game.id}
-                    name="id"
-                    required
-                  />
-                  <div className="game-details-input-box">
-                    <span className="details">Name</span>
+                  <div className="input-box-text">
                     <input
-                      type="text"
-                      value={game.name}
-                      onChange={onChange}
-                      name="name"
+                      type="hidden"
+                      defaultValue={game.id}
+                      name="id"
                       required
                     />
+                  </div>
+                  <div className="game-details-input-box">
+                    <span className="details">Name</span>
+                    <div className="input-box-text">
+                      <input
+                        type="text"
+                        value={game.name}
+                        onChange={onChange}
+                        name="name"
+                        required
+                      />
+                    </div>
                   </div>
                   <div className="game-details-input-box">
                     <span className="details">Rating</span>
-                    <input
-                      type="text"
-                      value={game.rating}
-                      onChange={onChange}
-                      name="rating"
-                      required
-                    />
+                    <div className="input-box-text">
+                      <input
+                        type="text"
+                        value={game.rating}
+                        onChange={onChange}
+                        name="rating"
+                        required
+                      />
+                    </div>
                   </div>
                   <div className="game-details-input-box">
                     <span className="details">Protagonist</span>
-                    <input
-                      type="text"
-                      value={game.protagonist}
-                      onChange={onChange}
-                      name="protagonist"
-                      required
-                    />
+                    <div className="input-box-text">
+                      <input
+                        type="text"
+                        value={game.protagonist}
+                        onChange={onChange}
+                        name="protagonist"
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="form_footer">

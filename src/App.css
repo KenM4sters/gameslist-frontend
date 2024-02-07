@@ -1,5 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Genos:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+
+/*
+
+    Animations
+
+*/
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
+@keyframes fadeInScaleAnimation {
+    0% {
+        opacity: 0.4;
+        scale: 0.9;
+    }
+    100% {
+        opacity: 0.8;
+        scale: 1;
+        
+    }
+}
+
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -8,6 +39,7 @@
 html, body {
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
+    animation: fadeInAnimation ease-in-out 1s;
 }
 
 #root {
@@ -20,13 +52,20 @@ html, body {
 */
 
 button {
-    background-color: rgb(0, 89, 255);
+    background-color: rgb(0, 153, 255);
     border: none;
     color: white;
     padding: 0.6rem;
     text-decoration: none;
     border-radius: 20px;
     cursor: pointer;
+    transition: all;
+    transition-duration: 0.5s;
+}
+
+button:hover {
+    background-color: blue;
+    scale: 0.95;
 }
 
 .game_item {
@@ -42,6 +81,12 @@ button {
     width: 30vw;
     height: 30vh;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    transition: all;
+    transition-duration: 0.5s;
+}
+
+.game_item:hover {
+    scale: 0.95;
 }
 
 .game_item_body {
@@ -95,7 +140,7 @@ img {
     width: 100vw;
     padding-top: 4vh;
     padding-bottom: 4vh;
-    background-color: rgb(69, 168, 255);
+    background-color: rgb(0, 200, 255);
 }
 
 .header-title{
@@ -127,7 +172,7 @@ img {
     flex-direction: column;
     justify-content: center;
     place-items: center;
-    row-gap: 5vh;
+    row-gap: 1vh;
     background-color: white;
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     width: 50vw;
@@ -141,7 +186,7 @@ img {
     margin-left: 15vw;
     display: flex;
     flex-direction: column;
-    row-gap: 5vh;
+    row-gap: 3vh;
 }
 
 .game_details_close {
@@ -222,7 +267,7 @@ img {
 .modal_wrapper {
     display: flex;
     flex-direction: column;
-    row-gap: 5vh;
+    row-gap: 2vh;
 }
 
 .modal_header {
@@ -234,13 +279,13 @@ img {
 .modal_form {
     display: flex;
     flex-direction: column;
-    row-gap: 2vh;
+    row-gap: 1vh;
 }
 
 .user-details {
     display: flex;
     flex-direction: column;
-    row-gap: 2vh;
+    row-gap: 3vh;
 }
 
 .input-box {
@@ -248,12 +293,40 @@ img {
     flex-direction: row;
     column-gap: 2vw;
     width: 10vw;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 1.0rem;
+    font-weight: 500;
+}
+
+.input-box-text {
+    position: absolute;
+    margin-left: 9vw;
+}
+
+.form_footer {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    column-gap: 2vw;
+}
+
+.file-input {
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5vh;
+    font-weight: 500;
 }
 
 .close-tag {
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 400;
+    transition: all;
+    transition-duration: 0.7s;
+}
+
+.close-tag:hover {
+    scale: 0.9;
+    opacity: 0.7;
 }
 
