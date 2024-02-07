@@ -1,11 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Genos:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
 }
 
+html, body {
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+}
+
 #root {
-    background-color: rgb(243, 243, 243);
+    background-color: rgb(255, 255, 255);
     height: 100vh;
+}
+
+/*
+    Universal HTML Element Styling
+*/
+
+button {
+    background-color: rgb(0, 89, 255);
+    border: none;
+    color: white;
+    padding: 0.6rem;
+    text-decoration: none;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 .game_item {
@@ -20,6 +41,7 @@
     border-radius: 20px;
     width: 30vw;
     height: 30vh;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .game_item_body {
@@ -38,10 +60,13 @@ img {
 }
 
 .game_list_body {
+    margin-top: 5vh;
     width: 100vw;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    row-gap: 5vh;
     justify-content: center;
+    place-items: center;
 }
 .game_list_wrapper {
     width: 70vw;
@@ -54,7 +79,7 @@ img {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    row-gap: 1vw;
+    row-gap: 5vw;
     column-gap: 10vw;
 }
 
@@ -70,6 +95,89 @@ img {
     width: 100vw;
     padding-top: 4vh;
     padding-bottom: 4vh;
-    background-color: aliceblue;
+    background-color: rgb(69, 168, 255);
+}
+
+.header-title{
+    margin-left: 10vw;
+}
+
+/*
+    Game Details View
+*/
+
+.game_details_wrapper {
+    width: 100vw;
+    height: 85vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    place-items: center;
+
+}
+
+/*
+    Pagination
+*/
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1vw;
+    font-size: 1.0rem;
+}
+
+.pagination a {
+    cursor: pointer;
+}
+
+.disabled {
+    visibility: hidden;
+}
+
+.active {
+    color: blue;
+}
+
+/*
+    Modal
+*/
+
+
+.modal {
+    background-color: rgb(255, 255, 255);
+    top: 25%;
+    left: 25%;
+    width: 30vh;
+    height: 25vw;
+    padding: 5vh;
+    border-radius: 15px;
+    border: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.modal_form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vh;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vh;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: row;
+    column-gap: 2vw;
+    width: 10vw;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.close-tag {
+    cursor: pointer;
 }
 

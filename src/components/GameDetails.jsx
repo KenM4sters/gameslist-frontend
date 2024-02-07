@@ -60,8 +60,9 @@ const GameDetails = ({ updateGame, updateImage }) => {
 
   return (
     <>
+    <section className="game_details_wrapper">
       <Link to={"/"} className="link">
-        <i className="bi bi-arrow-left"></i> Back to Home
+        <p>Back to Home</p> 
       </Link>
       <div className="game">
         <div className="game_details">
@@ -124,7 +125,6 @@ const GameDetails = ({ updateGame, updateImage }) => {
           </form>
         </div>
       </div>
-
       <form style={{ display: "none" }}>
         <input
           type="file"
@@ -132,8 +132,9 @@ const GameDetails = ({ updateGame, updateImage }) => {
           onChange={(e) => updatePhoto(e.target.files[0])}
           name="file"
           accept="image/*"
-        />
+          />
       </form>
+    </section>
     </>
   );
 };
