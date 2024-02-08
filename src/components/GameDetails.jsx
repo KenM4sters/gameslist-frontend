@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getGame, saveGame, updatePhoto } from "../api/GameService";
 import { toastSuccess } from "../api/Toast";
 
-const GameDetails = ({ updateGame, updateImage }) => {
+const GameDetails = ({ updateGame, updateImage, deleteGame }) => {
+  const navToHome = useNavigate();
   const modalRef = useRef();
   const inputRef = useRef();
   const [game, setGame] = useState({
@@ -55,6 +56,13 @@ const GameDetails = ({ updateGame, updateImage }) => {
     fetchGame(id);
     toastSuccess("Game updated!");
   };
+
+  const onDeleteGame = async (e) => {
+    e.preventDefault();
+    await deleteGame(game.id);
+    toastSuccess("Game deleted!");
+    navToHome('/');
+  }
 
   useEffect(() => {
     fetchGame(id);
@@ -171,7 +179,7 @@ const GameDetails = ({ updateGame, updateImage }) => {
               close
             </p>
             <h3>Are you sure you want to delete {game.name}</h3>
-            <button onClick={() => {console.log('delete');}}>Delete Game</button>
+            <button onClick={onDeleteGame}>Delete Game</button>
           </div>
         </section>
       </dialog>

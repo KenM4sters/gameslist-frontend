@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import {
+  deleteGame,
   getGame,
   getGames,
   saveGame,
@@ -79,7 +80,7 @@ function App() {
     }
   };
 
-  const deleteGame = async (id) => {
+  const removeGame = async (id) => {
     try {
       await deleteGame(id);
     } catch (e) {
@@ -131,6 +132,7 @@ function App() {
                 <GameDetails
                   updateGame={updateGame}
                   updateImage={updateImage}
+                  deleteGame={removeGame}
                 />
               }
             />
