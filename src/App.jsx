@@ -17,6 +17,7 @@ import { toastError } from "./api/Toast";
 
 function App() {
   const modalRef = useRef();
+  // const modalRef2 = useRef();
   const fileRef = useRef();
   const [data, setData] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
@@ -78,6 +79,15 @@ function App() {
     }
   };
 
+  const deleteGame = async (id) => {
+    try {
+      await deleteGame(id);
+    } catch (e) {
+      console.log(e);
+      toastError(e);
+    }
+  }
+
   const updateImage = async (formData) => {
     try {
       const { data: photoUrl } = await updatePhoto(formData);
@@ -92,7 +102,11 @@ function App() {
 
   return (
     <>
-      <Header toggleModal={toggleModal} numOfGames={data.totalElements} />
+      <Header
+        toggleModal={toggleModal}
+        // toggleDeleteModal={toggleDeleteModal}
+        numOfGames={data.totalElements}
+      />
       <main className="main">
         <div className="container">
           <Routes>
@@ -124,7 +138,7 @@ function App() {
         </div>
       </main>
 
-      {/* Modal */}
+      {/* Modal (Add Game) */}
       <dialog ref={modalRef} className="modal" id="modal">
         <section className="modal_wrapper">
           <div className="modal_header">
@@ -173,7 +187,7 @@ function App() {
                     />
                   </div>
                 </div>
-                <div className="file-input" >
+                <div className="file-input">
                   <span className="details">Profile Photo</span>
                   <div className="">
                     <input

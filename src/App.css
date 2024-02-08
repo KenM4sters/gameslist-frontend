@@ -40,6 +40,7 @@ html, body {
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
     animation: fadeInAnimation ease-in-out 1s;
+    font-size: calc(0.25rem + 1.3vh);
 }
 
 #root {
@@ -61,12 +62,24 @@ button {
     cursor: pointer;
     transition: all;
     transition-duration: 0.5s;
+    font-size: calc(0.25rem + 0.9vh);
 }
 
 button:hover {
     background-color: blue;
     scale: 0.95;
 }
+
+.danger {
+    background-color: rgb(232, 91, 91);
+}
+.danger:hover {
+    background-color: red;
+}
+
+/*
+    Game Item
+*/
 
 .game_item {
     position: relative;
@@ -92,8 +105,18 @@ button:hover {
 .game_item_body {
     display: flex;
     flex-direction: row;
+    justify-content: end;
+    text-align: start;
     margin-right: 5vw;
+}
 
+.game_item_info {
+    position: relative;
+    left: 4vw;
+    width: 15vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
 
 img {
@@ -136,6 +159,8 @@ img {
     position: relative;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    place-items: center;
     gap: 60vw;
     width: 100vw;
     padding-top: 4vh;
@@ -143,8 +168,17 @@ img {
     background-color: rgb(0, 200, 255);
 }
 
+.header-btn-wrapper {
+    margin-right: 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    place-items: center;
+    column-gap: 2vw;
+}
+
 .header-title{
-    margin-left: 10vw;
+
 }
 
 /*
@@ -208,15 +242,15 @@ img {
     display: flex;
     flex-direction: column;
     row-gap: 1vh;
-    font-size: 0.8rem;
+    font-size: calc(0.25rem + 0.6vh);
 }
 
 .game {
-    font-size: 2.0rem;
+    font-size: calc(0.25rem + 0.6vh);;
 }
 
 .game-details-input-box {
-    font-size: 1.2rem;
+    font-size: calc(0.25rem + 1.3vh);;
     display: flex;
     flex-direction: row;
     column-gap: 5vw;
@@ -232,7 +266,7 @@ img {
     display: flex;
     flex-direction: row;
     column-gap: 1vw;
-    font-size: 1.0rem;
+    font-size: calc(0.25rem + 1.0vh);;
 }
 
 .pagination a {
@@ -293,7 +327,7 @@ img {
     flex-direction: row;
     column-gap: 2vw;
     width: 10vw;
-    font-size: 1.0rem;
+    font-size: calc(0.25rem + 0.7vh);;
     font-weight: 500;
 }
 

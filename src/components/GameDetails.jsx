@@ -4,6 +4,7 @@ import { getGame, saveGame, updatePhoto } from "../api/GameService";
 import { toastSuccess } from "../api/Toast";
 
 const GameDetails = ({ updateGame, updateImage }) => {
+  const modalRef = useRef();
   const inputRef = useRef();
   const [game, setGame] = useState({
     id: "",
@@ -46,12 +47,12 @@ const GameDetails = ({ updateGame, updateImage }) => {
   };
 
   const onChange = (e) => {
-    setGame({...game, [e.target.name]: e.target.value})
+    setGame({ ...game, [e.target.name]: e.target.value });
   };
   const onUpdateGame = async (e) => {
     e.preventDefault();
     await updateGame(game);
-    fetchGame(id)
+    fetchGame(id);
     toastSuccess("Game updated!");
   };
 
@@ -59,94 +60,121 @@ const GameDetails = ({ updateGame, updateImage }) => {
     fetchGame(id);
   }, []);
 
+  const toggleDeleteModal = (show) =>
+    show ? modalRef.current.showModal() : modalRef.current.close();
 
   return (
     <>
-    <section className="game_details_wrapper">
-      <div className="game_details_body">
-        <img src={game.photoUrl} alt={`Photo of ${game.name}`} className="game_details_image" />
-        <div className="game_details_info">
-          <Link to={"/"} className="game_details_close">
-            <p>Back to Home</p> 
-          </Link>
-          <div className="game">
-            <div className="game_settings">
-              <form onSubmit={onUpdateGame} className="form">
-                <div className="user-details">
-                  <div className="input-box-text">
-                    <input
-                      type="hidden"
-                      defaultValue={game.id}
-                      name="id"
-                      required
-                    />
-                  </div>
-                  <div className="game-details-input-box">
-                    <span className="details">Name</span>
+      <section className="game_details_wrapper">
+        <div className="game_details_body">
+          <img
+            src={game.photoUrl}
+            alt={`Photo of ${game.name}`}
+            className="game_details_image"
+          />
+          <div className="game_details_info">
+            <Link to={"/"} className="game_details_close">
+              <p>Back to Home</p>
+            </Link>
+            <div className="game">
+              <div className="game_settings">
+                <form onSubmit={onUpdateGame} className="form">
+                  <div className="user-details">
                     <div className="input-box-text">
                       <input
-                        type="text"
-                        value={game.name}
-                        onChange={onChange}
-                        name="name"
+                        type="hidden"
+                        defaultValue={game.id}
+                        name="id"
                         required
                       />
                     </div>
-                  </div>
-                  <div className="game-details-input-box">
-                    <span className="details">Rating</span>
-                    <div className="input-box-text">
-                      <input
-                        type="text"
-                        value={game.rating}
-                        onChange={onChange}
-                        name="rating"
-                        required
-                      />
+                    <div className="game-details-input-box">
+                      <span className="details">Name</span>
+                      <div className="input-box-text">
+                        <input
+                          type="text"
+                          value={game.name}
+                          onChange={onChange}
+                          name="name"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="game-details-input-box">
+                      <span className="details">Rating</span>
+                      <div className="input-box-text">
+                        <input
+                          type="text"
+                          value={game.rating}
+                          onChange={onChange}
+                          name="rating"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="game-details-input-box">
+                      <span className="details">Protagonist</span>
+                      <div className="input-box-text">
+                        <input
+                          type="text"
+                          value={game.protagonist}
+                          onChange={onChange}
+                          name="protagonist"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className="game-details-input-box">
-                    <span className="details">Protagonist</span>
-                    <div className="input-box-text">
-                      <input
-                        type="text"
-                        value={game.protagonist}
-                        onChange={onChange}
-                        name="protagonist"
-                        required
-                      />
-                    </div>
+                  <div className="form_footer">
+                    <button type="submit" className="btn">
+                      Save
+                    </button>
                   </div>
-                </div>
-                <div className="form_footer">
-                  <button type="submit" className="btn">
-                    Save
-                  </button>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
-          <div className="game_metadata">
-            <p className="game_name">{game.name}</p>
-            <p className="game_file_formats">
-              JPG, PNG, or GIF - max size 10MB
-            </p>
-            <button className="btn" onClick={selectImage}>
-              Change Photo
+            <button
+              onClick={() => {
+                toggleDeleteModal(true);
+              }}
+              className="btn danger"
+            >
+              Delete Game
             </button>
-          </div>
-          <form style={{ display: "none" }}>
-            <input
-              type="file"
-              ref={inputRef}
-              onChange={(e) => updatePhoto(e.target.files[0])}
-              name="file"
-              accept="image/*"
+            <div className="game_metadata">
+              <p className="game_name">{game.name}</p>
+              <p className="game_file_formats">
+                JPG, PNG, or GIF - max size 10MB
+              </p>
+              <button className="btn" onClick={selectImage}>
+                Change Photo
+              </button>
+            </div>
+            <form style={{ display: "none" }}>
+              <input
+                type="file"
+                ref={inputRef}
+                onChange={(e) => updatePhoto(e.target.files[0])}
+                name="file"
+                accept="image/*"
               />
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Delete Modal */}
+      <dialog ref={modalRef} className="modal" id="modal">
+        <section className="modal_wrapper">
+          <div>
+            <p onClick={() => toggleDeleteModal(false)} className="close-tag">
+              close
+            </p>
+            <h3>Are you sure you want to delete {game.name}</h3>
+            <button onClick={() => {console.log('delete');}}>Delete Game</button>
+          </div>
+        </section>
+      </dialog>
     </>
   );
 };
