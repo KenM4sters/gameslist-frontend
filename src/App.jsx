@@ -74,6 +74,7 @@ function App() {
   const updateGame = async (game) => {
     try {
       const { data } = await saveGame(game);
+      getAllGames();
     } catch (e) {
       console.log(e);
       toastError(e);
@@ -83,6 +84,7 @@ function App() {
   const removeGame = async (id) => {
     try {
       await deleteGame(id);
+      getAllGames();
     } catch (e) {
       console.log(e);
       toastError(e);
