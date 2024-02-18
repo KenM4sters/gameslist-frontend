@@ -58,7 +58,7 @@ button {
     color: white;
     padding: 0.6rem;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all;
     transition-duration: 0.5s;
@@ -91,11 +91,23 @@ button:hover {
     text-decoration: none;
     color: black;
     border-radius: 20px;
-    width: 30vw;
+    width: 35vw;
     height: 30vh;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
     transition: all;
     transition-duration: 0.5s;
+}
+
+.btn {
+    width: 5vw;
+    background-color: rgb(41, 91, 144);
+    transition: all;
+    transition-duration: 0.5s;
+}
+
+.btn:hover {
+    background-color: rgb(22, 132, 195);
+    box-shadow: rgb(0, 153, 255);
 }
 
 .game_item:hover {
@@ -123,7 +135,7 @@ img {
     position: absolute;
     left: 0;
     top: 0;
-    width: 10vw;
+    width: 15vw;
     height: 30vh;
 }
 
@@ -137,15 +149,17 @@ img {
     place-items: center;
 }
 .game_list_wrapper {
-    width: 70vw;
+    width: 90vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    place-items: center;
 }
 
 .game_list_items {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     flex-wrap: wrap;
     row-gap: 5vw;
     column-gap: 10vw;
@@ -360,7 +374,13 @@ img {
 }
 
 .close-tag:hover {
-    scale: 0.9;
     opacity: 0.7;
+}
+
+.delete-modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 10vh;
 }
 

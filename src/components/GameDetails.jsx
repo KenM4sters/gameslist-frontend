@@ -41,6 +41,7 @@ const GameDetails = ({ updateGame, updateImage, deleteGame }) => {
         ...prev,
         photoUrl: `${prev.photoUrl}?updated_at=${new Date().getTime()}`,
       }));
+      fetchGame(id);
       toastSuccess("Photo updated!");
     } catch (e) {
       console.log(e);
@@ -145,7 +146,7 @@ const GameDetails = ({ updateGame, updateImage, deleteGame }) => {
               onClick={() => {
                 toggleDeleteModal(true);
               }}
-              className="btn danger"
+              className="danger"
             >
               Delete Game
             </button>
@@ -154,7 +155,7 @@ const GameDetails = ({ updateGame, updateImage, deleteGame }) => {
               <p className="game_file_formats">
                 JPG, PNG, or GIF - max size 10MB
               </p>
-              <button className="btn" onClick={selectImage}>
+              <button className="" onClick={selectImage}>
                 Change Photo
               </button>
             </div>
@@ -174,12 +175,12 @@ const GameDetails = ({ updateGame, updateImage, deleteGame }) => {
       {/* Delete Modal */}
       <dialog ref={modalRef} className="modal" id="modal">
         <section className="modal_wrapper">
-          <div>
+          <div className="delete-modal-container">
             <p onClick={() => toggleDeleteModal(false)} className="close-tag">
               close
             </p>
-            <h3>Are you sure you want to delete {game.name}</h3>
-            <button onClick={onDeleteGame}>Delete Game</button>
+            <h3>Are you sure you want to delete {game.name}?</h3>
+            <button style={{width: "30%"}} onClick={onDeleteGame}>Delete Game</button>
           </div>
         </section>
       </dialog>

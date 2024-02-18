@@ -93,7 +93,9 @@ function App() {
 
   const updateImage = async (formData) => {
     try {
-      const { data: photoUrl } = await updatePhoto(formData);
+      const updatedGame  = await updatePhoto(formData);
+      getAllGames();
+      console.log(formData);
     } catch (e) {
       console.log(e);
       toastError(e);
